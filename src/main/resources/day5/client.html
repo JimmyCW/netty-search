@@ -8,14 +8,17 @@
     var socket;
     if(window.WebSocket) {
         socket = new WebSocket("ws://localhost:9005/ws");
-        var ta = document.getElementById("responseText");
         socket.onmessage = function (event) {
+            //这个ta要写在里面 每次回调都是这个里面的方法，醉了。。。。
+            var ta = document.getElementById("responseText");
             ta.value = ta.value + "\n" + event.data;
         }
         socket.onopen = function (event) {
+            var ta = document.getElementById("responseText");
             ta.value = "链接开启";
         }
         socket.onclose = function (event) {
+            var ta = document.getElementById("responseText");
             ta.value = ta.value + "\n" + "链接关闭";
         }
     } else {
