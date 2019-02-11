@@ -1,4 +1,4 @@
-package com.wx.nettysearch.day3;
+package com.wx.nettysearch.day4;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -10,20 +10,19 @@ import io.netty.handler.logging.LoggingHandler;
 
 /**
  * @author weixing
- * @date 2019/2/1
+ * @date 2019/2/10
  **/
-public class MyChatServer {
+public class MyServer {
 
     public static void main(String[] args) throws InterruptedException {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
-        NioEventLoopGroup workerGroup = new NioEventLoopGroup();
-
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new MyChatServerInitializer());
+                    .childHandler(new MyServerInitializer());
             ChannelFuture channelFuture = serverBootstrap.bind(9004).sync();
             channelFuture.channel().closeFuture().sync();
         } finally {
@@ -32,4 +31,5 @@ public class MyChatServer {
         }
 
     }
+
 }
